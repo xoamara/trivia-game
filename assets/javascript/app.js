@@ -3,7 +3,7 @@
 let trivia = [
 
     {
-        question: "What is the name of the story Bilbo wrote about his adventures?", {
+        question: "What is the name of the story Bilbo wrote about his adventures?",
         choices: ["The Hobbit", "The Silmarillion ", "A Hobbit's Tale ", "Into the West"],
         answer: "A Hobbit's Tale",
     },
