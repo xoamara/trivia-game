@@ -51,24 +51,46 @@ let trivia = [
 ]
 
 let score = 0;
+let questionZone = $("#question-zone");
+let seconds = 60;
+const timer = 1000 * seconds;
+let startTimer = $("#start");
+let showTimer = $("#show-timer");
 
-for (var i = 0; i < trivia.length; i++) {
-    let activeQuestion = $("<h1>");
-    activeQuestion = $("#question").text(trivia[i].question);
-    {
+startTimer.on("click", setClock);
 
-        for (var i = 0; i < trivia.choices.length; i++) {
-            let activeChoices = $("<button>");
-            activeChoices.addClass("btn btn-primary btn-lg btn-block");
-            activeChoices = $("#choice-buttons").text(trivia.choices[i]);
-            $("#choice-buttons").append(activeChoices);
-        }
-    }
-
-
+function setClock() {
+    setTimeout(timer);
+    setInterval(countDown, 1000);
 }
 
-console.log(trivia.choices);
+function countDown() {
+    seconds--;
+    showTimer.text(seconds);
+}
+
+
+for (var i = 0; i < trivia.length; i++) {
+    let activeQuestion = trivia[i];
+    let questionBox = $("<div>");
+    let questionTitle = $("<p>").text(activeQuestion.question);
+    let answerBox = $("<div>");
+    let answers = activeQuestion.choices;
+    
+        for (var j = 0; j < answers.length; j++) {
+            let answerChoice = answers[j];
+            let radioButton = $("<input>" + answerChoice + "</input>");
+            radioButton.attr({
+                type: "radio",
+                value: answerChoice,
+                name: i});
+                answerBox.append(radioButton);
+            }
+        questionBox.append(questionTitle);
+        questionBox.append(answerBox);
+        questionZone.append(questionBox);
+    }
+
 
 // });
 
