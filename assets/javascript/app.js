@@ -4,7 +4,7 @@ let trivia = [
 
     {
         question: "What is the name of the story Bilbo wrote about his adventures?",
-        choices: ["The Hobbit", "The Silmarillion ", "A Hobbit's Tale ", "Into the West"],
+        choices: ["The Hobbit", "The Silmarillion ", "A Hobbit's Tale", "Into the West"],
         answer: "A Hobbit's Tale",
     },
     {
@@ -20,7 +20,7 @@ let trivia = [
     {
         question: "What is the secret word that opens the Gates of Moria?",
         choices: ["Belok (friend)", "Danwaith (elves)", "Galad (light)", "Mellon (friend)"],
-        answer: "Melon (friend)",
+        answer: "Mellon (friend)",
     },
     {
         question: "Which Rebel Pilot, who goes on a run of both Death Stars appears in all 2 films?",
@@ -76,20 +76,44 @@ for (var i = 0; i < trivia.length; i++) {
     let questionTitle = $("<p>").text(activeQuestion.question);
     let answerBox = $("<div>");
     let answers = activeQuestion.choices;
+    let correctAnswer = activeQuestion.answer;
+
+
+    for (var j = 0; j < answers.length; j++) {
+        let answerChoice = answers[j];
+        let radioButton = $("<input>" + answerChoice + "</input>");
+        radioButton.attr({
+            type: "radio",
+            value: answerChoice,
+            name: i
+        });
+        answerBox.append(radioButton);
     
-        for (var j = 0; j < answers.length; j++) {
-            let answerChoice = answers[j];
-            let radioButton = $("<input>" + answerChoice + "</input>");
-            radioButton.attr({
-                type: "radio",
-                value: answerChoice,
-                name: i});
-                answerBox.append(radioButton);
-            }
-        questionBox.append(questionTitle);
-        questionBox.append(answerBox);
-        questionZone.append(questionBox);
     }
+    questionBox.append(questionTitle);
+    questionBox.append(answerBox);
+    questionZone.append(questionBox);
+}
+
+
+
+$("input[type='radio']").click(function () {
+    var radioValue = $(this).val();
+    var answerValue = $(this).attr("name");
+    var answerCheck = trivia[answerValue].answer;
+    console.log(this);
+    if (radioValue === answerCheck) {
+        score++;
+        alert("Correct!");
+    } else {
+        alert("Wrong!");
+    }
+});
+
+
+
+
+
 
 
 // });
