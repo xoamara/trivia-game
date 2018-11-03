@@ -1,4 +1,4 @@
-// $("document").ready(function () {
+$("document").ready(function () {
 
 let trivia = [
 
@@ -52,43 +52,65 @@ let trivia = [
 
 let score = 0;
 let questionZone = $("#question-zone");
-let seconds = 60;
-const timer = 1000 * seconds;
 let startTimer = $("#start");
 let showTimer = $("#show-timer");
+let checkButton = $("#check-answers-button");
+let seconds = 30;
+let intervalId;
 
 startTimer.on("click", setClock);
 
 function setClock() {
-    setTimeout(timer);
-    setInterval(countDown, 1000);
+    clearInterval(intervalId);
+    intervalID = setInterval(countDown, 1000);
 }
 
 function countDown() {
     seconds--;
-    showTimer.text(seconds);
+    showTimer.text("Time Remaining: " + seconds);
+
+    if (seconds === 0) {
+        showTimer.text("Time's up!  You scored " + score + "/" + trivia.length + " correct");
+        stop();
+    }
 }
+
+function stop() {
+    clearInterval(intervalID);
+}
+
+checkButton.on("click", showAnswers);
+
+function showAnswers() {
+    showTimer.text("You scored " + score + "/" + trivia.length + " correct");
+
+    stop()
+};
+
 
 
 for (var i = 0; i < trivia.length; i++) {
     let activeQuestion = trivia[i];
     let questionBox = $("<div>");
-    let questionTitle = $("<p>").text(activeQuestion.question);
+    let questionTitle = $("<h4>").text(activeQuestion.question);
     let answerBox = $("<div>");
     let answers = activeQuestion.choices;
-    let correctAnswer = activeQuestion.answer;
+
 
 
     for (var j = 0; j < answers.length; j++) {
         let answerChoice = answers[j];
-        let radioButton = $("<input>" + answerChoice + "</input>");
+        let radioButton = $("<input>", "</input>");
+        let radioLabel = $("<label>" + answerChoice + "</label>");
         radioButton.attr({
+            class: "custom-control custom-radio",
             type: "radio",
             value: answerChoice,
             name: i
         });
         answerBox.append(radioButton);
-    
+        answerBox.append(radioLabel);
+
     }
     questionBox.append(questionTitle);
     questionBox.append(answerBox);
@@ -101,20 +123,10 @@ $("input[type='radio']").click(function () {
     var radioValue = $(this).val();
     var answerValue = $(this).attr("name");
     var answerCheck = trivia[answerValue].answer;
-    console.log(this);
     if (radioValue === answerCheck) {
         score++;
-        alert("Correct!");
-    } else {
-        alert("Wrong!");
     }
 });
 
-
-
-
-
-
-
-// });
+});
 
