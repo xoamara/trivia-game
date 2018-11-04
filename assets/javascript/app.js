@@ -83,7 +83,6 @@ checkButton.on("click", showAnswers);
 
 function showAnswers() {
     showTimer.text("You scored " + score + "/" + trivia.length + " correct");
-
     stop()
 };
 
