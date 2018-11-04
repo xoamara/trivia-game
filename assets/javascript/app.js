@@ -129,3 +129,10 @@ $("input[type='radio']").click(function () {
 
 });
 
+
+// TODO
+
+// Need game reset function
+
+// Need radio disabled until the start button is clicked
+
