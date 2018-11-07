@@ -62,7 +62,7 @@ startTimer.on("click", setClock);
 
 function setClock() {
     clearInterval(intervalId);
-    intervalID = setInterval(countDown, 1000);
+    intervalId = setInterval(countDown, 1000);
 }
 
 function countDown() {
@@ -76,7 +76,7 @@ function countDown() {
 }
 
 function stop() {
-    clearInterval(intervalID);
+    clearInterval(intervalId);
 }
 
 checkButton.on("click", showAnswers);
